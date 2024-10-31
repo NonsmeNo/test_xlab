@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject _ui;
     [SerializeField] private StoneSpawner _stoneSpawner;
+    [SerializeField] private CloudController _cloudController;
+    [SerializeField] private ToolChangeController _toolChangeController;
 
 
     private void Update()
@@ -30,6 +32,22 @@ public class PlayerController : MonoBehaviour
                 _stoneSpawner.Spawn();
             }
         }
+
+         if (_cloudController != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                _cloudController.MoveNext();
+            }
+        }
+        if (_toolChangeController != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _toolChangeController.Change();
+            }
+        }
+
     }
 
 }

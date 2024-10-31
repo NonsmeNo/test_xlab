@@ -5,7 +5,7 @@ using UnityEngine;
 public class StoneSpawner : MonoBehaviour
 {
     [SerializeField] private Transform _point;
-    [SerializeField] private GameObject _prefab;
+    [SerializeField] private GameObject[] _prefabs;
 
     private void Start()
     {
@@ -16,6 +16,7 @@ public class StoneSpawner : MonoBehaviour
     }
     public void Spawn ()
     {
-        Instantiate(_prefab, _point.position, _point.rotation);
+        int index = Random.Range(0, _prefabs.Length);
+        Instantiate(_prefabs[index], _point.position, _point.rotation);
     }
 }
