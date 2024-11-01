@@ -1,4 +1,7 @@
+using System;
 using UnityEngine;
+
+
 namespace Golf
 {
     public class PlayerController : MonoBehaviour
@@ -6,21 +9,28 @@ namespace Golf
     {
 
         public Transform stick;
-        public float maxAngle = 30;
-        private void Update()
+        public float maxAngle = 30f;
+        public float speed = 1f;
+
+        private void Awake()
         {
-            var angle = stick.localEulerAngles;
+            Application.targetFrameRate = 30;
+        }
+        private void FixedUpdate()
+        {
+            
             if (Input.GetMouseButton(0))
             {
-                angle.z = maxAngle;
+                
             }
             else
             {
-                angle.z = -maxAngle;
+                
             }
 
-            stick.localEulerAngles = angle;
+
         }
+
 
     }
 }
