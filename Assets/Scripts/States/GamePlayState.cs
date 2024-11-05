@@ -20,10 +20,20 @@ namespace Golf
             playerController.enabled = true;
             levelController.enabled = true;
 
+            rootUI.SetActive(true);
         }
 
         private void OnDisable()
         {
+            rootUI.SetActive(false);
+            playerController.enabled = false;
+            levelController.enabled = false;
+        }
+
+
+        public void Play()
+        {
+            gameObject.SetActive(true);
         }
 
     

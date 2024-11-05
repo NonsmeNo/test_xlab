@@ -10,6 +10,7 @@ namespace Golf
         public GameObject mainMenuUI;
         public GamePlayState gamePlayState;
         public TextMeshProUGUI scoreText;
+        
         private void OnEnable()
         {
             mainMenuUI.SetActive(true);
@@ -22,6 +23,7 @@ namespace Golf
         public void Play()
         {
             this.gameObject.SetActive(false);
+            gamePlayState.Play();
         }
     }
 }
