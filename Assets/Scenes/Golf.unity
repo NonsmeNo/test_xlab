@@ -291,8 +291,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13380b99b5beb174ea8d6fe603db2d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stoneSpawner: {fileID: 394231233}
-  _delay: 2
+  stick: {fileID: 662128488}
+  stoneSpawner: {fileID: 394231233}
 --- !u!4 &27950558
 Transform:
   m_ObjectHideFlags: 0
@@ -2510,9 +2510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b2fb971121e504b9221709f2f8202f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stick: {fileID: 662128487}
-  maxAngle: 30
-  speed: 10
+  stick: {fileID: 662128488}
 --- !u!4 &297725952
 Transform:
   m_ObjectHideFlags: 0
@@ -5766,8 +5764,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 662128487}
-  - component: {fileID: 662128489}
   - component: {fileID: 662128488}
+  - component: {fileID: 662128489}
   m_Layer: 0
   m_Name: Stick
   m_TagString: Untagged
@@ -5805,9 +5803,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAngle: 30
   speed: 360
-  power: 10
-  _rigidbody: {fileID: 0}
-  point: {fileID: 0}
+  power: 20
+  point: {fileID: 528386380}
 --- !u!54 &662128489
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5830,8 +5827,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0

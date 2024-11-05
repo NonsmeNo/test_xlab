@@ -8,9 +8,7 @@ namespace Golf
 
     {
 
-        public Transform stick;
-        public float maxAngle = 30f;
-        public float speed = 1f;
+        public Stick stick;
 
         private void Awake()
         {
@@ -18,19 +16,15 @@ namespace Golf
         }
         private void FixedUpdate()
         {
-            
+
             if (Input.GetMouseButton(0))
             {
-                
+                stick.Down();
             }
             else
             {
-                
+                stick.Up();
             }
-
-
         }
-
-
     }
 }

@@ -11,31 +11,39 @@ namespace Golf
         public float maxAngle = 30f;
         public float speed = 360f;
         public float power = 10f;
-   
+
 
         private bool _isDown = false;
-        public Rigidbody _rigidbody;
+        private Rigidbody _rigidbody;
 
         public Transform point;
+        public event System.Action OnCollisionStone;
 
         private Vector3 _lastPointPosition;
+        private Vector3 _dir; //направление
+
+
+        
 
 
         private void Awake()
-        {_rigidbody = GetComponent<Rigidbody>();}
+        {
+            _rigidbody = GetComponent<Rigidbody>();
+        }
 
 
-        public void Down()
+        public void Down() // нажал
         {
             _isDown = false;
         }
-        public void Up()
+        public void Up() // отжал
         {
             _isDown = true;
         }
 
         private void Update()
         {
+            _dir = (point.position - _lastPointPosition).normalized;
             _lastPointPosition = point.position;
         }
 
@@ -43,9 +51,9 @@ namespace Golf
         private void FixedUpdate()
         {
             Vector3 angle = transform.localEulerAngles;
-            if (Input.GetMouseButton(0))
+            if (_isDown)
             {
-                angle.z = Mathf.MoveTowardsAngle(angle.z, -maxAngle, speed * Time.deltaTime);
+                angle.z = Mathf.MoveTowardsAngle(angle.z, -maxAngle, speed * Time.deltaTime); //в FixedUpdate deltatime = fixeddeltatime
             }
             else
             {
@@ -53,18 +61,17 @@ namespace Golf
             }
 
             transform.localEulerAngles = angle;
-
-           // _rigidbody.MoveRotation();
         }
 
-        private void OnCollisionEnter(Collision other)
+        private void OnCollisionEnter(Collision other) //для того чтобы камень отталкивался от клюшки
         {
-            Debug.Log(other, this);
-            if (other.rigidbody)
+            if (other.gameObject.TryGetComponent<Stone>(out var stone) && !stone.isDirty) 
             {
+                stone.isDirty = true;
                 var contact = other.contacts[0];
-                Debug.Log($"{contact.point} - {contact.normal} - {contact.impulse}");
-                //other.rigidbody.AddForce(_dir * power, ForceMode.Impulse);
+                //Debug.Log($"{contact.point} - {contact.normal} - {contact.impulse}");
+                other.rigidbody.AddForce(_dir * power, ForceMode.Impulse);
+                OnCollisionStone?.Invoke();
             }
         }
     }

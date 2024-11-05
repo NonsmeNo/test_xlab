@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4092273325488581974}
   - component: {fileID: 2851646329743210821}
   - component: {fileID: 2731174186946308718}
+  - component: {fileID: 206047446050482433}
   m_Layer: 0
   m_Name: falling_stone_2
   m_TagString: Untagged
@@ -134,3 +135,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &206047446050482433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4078489199568397458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b5bc60b70947c4a84a5e028f08121a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

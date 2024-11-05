@@ -7,19 +7,19 @@ namespace Golf
 {
     public class Stone : MonoBehaviour
     {
-        public event Action OnCollisionStick;
         public event Action OnCollisionStone;
+        public bool isDirty = false;
 
-        // private void OnCollisionEnter(Collider other)
-        // {
-        //     if (other.gameObject.GetComponent<Stone>())
-        //     {
-        //         OnCollisionStone?.Invoke();
-        //     }
-        //     else if (other.gameObject.GetComponent<Collider>())
-        //     {
-                
-        //     }
-        // }
+        private void OnCollisionEnter(Collision other)
+        {
+            if (isDirty)
+            {
+                return;
+            }
+            if (other.gameObject.GetComponent<Stone>())
+            {
+                OnCollisionStone?.Invoke();
+            }
+        }
     }
 }
