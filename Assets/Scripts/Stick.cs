@@ -41,13 +41,6 @@ namespace Golf
             _isDown = true;
         }
 
-        private void Update()
-        {
-            _dir = (point.position - _lastPointPosition).normalized;
-            _lastPointPosition = point.position;
-        }
-
-
         private void FixedUpdate()
         {
             Vector3 angle = transform.localEulerAngles;
@@ -61,6 +54,9 @@ namespace Golf
             }
 
             transform.localEulerAngles = angle;
+
+            _dir = (point.position - _lastPointPosition).normalized;
+            _lastPointPosition = point.position;
         }
 
         private void OnCollisionEnter(Collision other) //для того чтобы камень отталкивался от клюшки
