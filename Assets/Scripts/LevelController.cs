@@ -13,8 +13,8 @@ namespace Golf
         private int _score = 0;
 
 
-        public event Action onGameOver;
-        public event Action<int> onStoreInc;
+        public event Action<int> onGameOver;
+        public event Action<int> onScoreInc;
 
 
         private List<Stone> _stones = new List<Stone>();
@@ -23,16 +23,27 @@ namespace Golf
         {
             _timer = Time.time - _delay;
             stick.OnCollisionStone += OnCollisionStick;
+
+            _score = 0;
+            ClearStones();
         }
         public void OnDisable()
         {
             if (stick)
             {
-                stick.OnCollisionStone -= OnCollisionStone;
+                stick.OnCollisionStone -= OnCollisionStick;
             }
         }
 
-       
+        private void ClearStones()
+        {
+            foreach (var stone in _stones)
+            {
+                Destroy(stone.gameObject);
+            }
+            _stones.Clear();
+        }
+
 
         public void Update()
         {
@@ -52,12 +63,14 @@ namespace Golf
         private void OnCollisionStone()
         {
             Debug.Log("GAME OVER!!!!!");
-            onGameOver?.Invoke();        }
+            onGameOver?.Invoke(_score);        
+        }
+
          private void OnCollisionStick()
         {
             _score++;
             Debug.Log($"score: {_score}");
-            onStoreInc?.Invoke(_score); 
+            onScoreInc?.Invoke(_score); 
         }
     }
 

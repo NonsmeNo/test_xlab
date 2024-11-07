@@ -18,12 +18,20 @@ namespace Golf
         }
         private void OnDisable()
         {
-            mainMenuUI.SetActive(false);
+            if (mainMenuUI)
+            {
+                mainMenuUI.SetActive(false);
+            }
         }
         public void Play()
         {
-            this.gameObject.SetActive(false);
-            gamePlayState.Play();
+            gameObject.SetActive(false);
+            gamePlayState.gameObject.SetActive(true);
+        }
+
+        private void Exit()
+        {
+
         }
     }
 }

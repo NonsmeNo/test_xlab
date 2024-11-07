@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,37 +8,60 @@ namespace Golf
 {
     public class GamePlayState : MonoBehaviour
     {
-        public GameObject rootUI;
-        public MainMenuState mainMenuState;
-        public GamePlayState gamePlayState;
+        public GameOverState gameOverState;
 
         public PlayerController playerController;
         public LevelController levelController;
 
+        public GameObject rootUI;
+        public TMPro.TextMeshProUGUI scoreText;
+
 
         private void OnEnable()
         {
+            rootUI.SetActive(true);
             playerController.enabled = true;
             levelController.enabled = true;
 
-            rootUI.SetActive(true);
+            levelController.onGameOver += OnGameOver;
+            levelController.onScoreInc += OnScoreInc;
+
+            OnScoreInc(0);
         }
+
 
         private void OnDisable()
         {
-            rootUI.SetActive(false);
-            playerController.enabled = false;
-            levelController.enabled = false;
+            if (rootUI)
+            {
+                rootUI.SetActive(false);
+            }
+            if (playerController)
+            {
+                playerController.enabled = false;
+            }
+            if (levelController)
+            {
+                levelController.enabled = false;
+
+                levelController.onGameOver -= OnGameOver;
+                levelController.onScoreInc -= OnScoreInc;
+            }
         }
 
-
-        public void Play()
+        private void OnScoreInc(int score)
         {
-            gameObject.SetActive(true);
+            scoreText.text = $"SCORE: {score}";
         }
 
-    
+        private void OnGameOver(int score)
+        {
+            GameInstance.score = Mathf.Max(GameInstance.score, score);
 
+
+            gameObject.SetActive(false);
+            gameOverState.gameObject.SetActive(true);
+        }
 
     }
 }
