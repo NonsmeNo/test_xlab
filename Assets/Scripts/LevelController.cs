@@ -16,6 +16,8 @@ namespace Golf
         public event Action<int> onGameOver;
         public event Action<int> onScoreInc;
 
+        public LevelSettings levelSettings;
+
 
         private List<Stone> _stones = new List<Stone>();
 
@@ -24,7 +26,13 @@ namespace Golf
             _timer = Time.time - _delay;
             stick.OnCollisionStone += OnCollisionStick;
 
+            // настроить задержку падения префабов
+
             _score = 0;
+
+
+            var isPath = $"LevelSettings {GameInstance.level}";
+            var ls = Resources.Load<LevelSettings>(lsPath);
             ClearStones();
         }
         public void OnDisable()
