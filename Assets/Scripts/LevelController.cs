@@ -31,8 +31,8 @@ namespace Golf
             _score = 0;
 
 
-            var isPath = $"LevelSettings {GameInstance.level}";
-            var ls = Resources.Load<LevelSettings>(lsPath);
+            // var isPath = $"LevelSettings {GameInstance.level}";
+            // var ls = Resources.Load<LevelSettings>(lsPath);
             ClearStones();
         }
         public void OnDisable()
