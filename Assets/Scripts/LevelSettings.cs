@@ -8,7 +8,8 @@ namespace Golf
     [CreateAssetMenu(fileName = "LevelSettings", menuName = "LevelSettings")]
     public class LevelSettings : ScriptableObject
     {
-        public float stoneFallDelay = 1f;
+        public float stoneFallDelay = 2f;
+
         
         [SerializeField] private int level;
         
