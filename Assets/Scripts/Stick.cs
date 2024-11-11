@@ -18,6 +18,7 @@ namespace Golf
 
         public Transform point;
         public event System.Action OnCollisionStone;
+        public event System.Action OnCollisionDynamite;
 
         private Vector3 _lastPointPosition;
         private Vector3 _dir; //направление
@@ -80,6 +81,11 @@ namespace Golf
                 other.rigidbody.AddForce(_dir * power, ForceMode.Impulse);
                 OnCollisionStone?.Invoke();
             }
+            // if (other.gameObject.TryGetComponent<Dynamite>(out var dynamite))
+            // {
+            //     //OnCollisionDynamite?.Invoke();
+            //     //Destroy(other.gameObject);
+            // }
         }
     }
 }

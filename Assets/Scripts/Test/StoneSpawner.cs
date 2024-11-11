@@ -7,6 +7,8 @@ public class StoneSpawner : MonoBehaviour
     [SerializeField] private Transform _point;
     [SerializeField] private GameObject[] _prefabs;
 
+    [SerializeField] private GameObject _dynamite;
+
     private void Start()
     {
         if (_point == null)
@@ -19,4 +21,9 @@ public class StoneSpawner : MonoBehaviour
         int index = Random.Range(0, _prefabs.Length);
         return Instantiate(_prefabs[index], _point.position, _point.rotation);
     }
+    public GameObject SpawnDynamite()
+    {
+        return Instantiate(_dynamite, _point.position, _point.rotation);
+    }
+
 }

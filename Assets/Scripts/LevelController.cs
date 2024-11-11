@@ -11,6 +11,7 @@ namespace Golf
         private float _timer;
         private float _delay = 2f; // задержка, с которой будут подаваться камни
         private int _score = 0;
+        private int _nextInterval;
 
 
         public event Action<int> onGameOver;
@@ -21,16 +22,21 @@ namespace Golf
 
         //public LevelSettings levelSettings;
 
+
+        private bool _dynamiteSpawned = false;
+
         public void OnEnable()
         {
             _timer = Time.time - _delay;
             stick.OnCollisionStone += OnCollisionStick;
 
             _score = 0;
-            
+
             var ls = Resources.Load<LevelSettings>("LevelSettings 0");
 
             _delay = ls.stoneFallDelay;
+
+            SetNextInterval();
             ClearStones();
         }
         public void OnDisable()
@@ -64,34 +70,53 @@ namespace Golf
 
                 _stones.Add(stone);
             }
-            if (_score == 10)
-            {
-                var ls = Resources.Load<LevelSettings>("LevelSettings 1");
+
+            if (_score == _nextInterval && !_dynamiteSpawned)
+            {   
+                var levelSettingsArray = Resources.LoadAll<LevelSettings>("");
+                int randomIndex = UnityEngine.Random.Range(0, levelSettingsArray.Length);
+                var ls = levelSettingsArray[randomIndex];
                 _delay = ls.stoneFallDelay;
+                SetNextInterval();
+
+
+                var go = stoneSpawner.SpawnDynamite();
+                var dynamite = go.GetComponent<Dynamite>();
+                //dynamite.OnCollisionDynamite += OnCollisionDynamite;
+
+                _dynamiteSpawned = true;
             }
-            if (_score == 20)
+            else if (_score > _nextInterval)
             {
-                var ls = Resources.Load<LevelSettings>("LevelSettings 0");
-                _delay = ls.stoneFallDelay;
+                _dynamiteSpawned = false;
             }
-            if (_score == 27)
-            {
-                var ls = Resources.Load<LevelSettings>("LevelSettings 2");
-                _delay = ls.stoneFallDelay;
-            }
+        }
+
+        private void OnCollisionDynamite()
+        {
+            Debug.Log("GAME OVER!!!!!");
+            onGameOver?.Invoke(_score);
+        }
+
+        private void SetNextInterval()
+        {
+            int randomInterval = UnityEngine.Random.Range(3, 7);
+            _nextInterval = _score + randomInterval;
         }
 
         private void OnCollisionStone()
         {
             Debug.Log("GAME OVER!!!!!");
-            onGameOver?.Invoke(_score);        
+            onGameOver?.Invoke(_score);
         }
 
-         private void OnCollisionStick()
+
+
+        private void OnCollisionStick()
         {
             _score++;
             Debug.Log($"score: {_score}");
-            onScoreInc?.Invoke(_score); 
+            onScoreInc?.Invoke(_score);
         }
     }
 
