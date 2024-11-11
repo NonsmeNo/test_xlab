@@ -22,7 +22,7 @@ namespace Golf
 
         //public LevelSettings levelSettings;
 
-
+        private LevelSettings[] _levelSettingsArray;
         private bool _dynamiteSpawned = false;
 
         public void OnEnable()
@@ -31,7 +31,7 @@ namespace Golf
             stick.OnCollisionStone += OnCollisionStick;
 
             _score = 0;
-
+            _levelSettingsArray = Resources.LoadAll<LevelSettings>("");
             var ls = Resources.Load<LevelSettings>("LevelSettings 0");
 
             _delay = ls.stoneFallDelay;
@@ -59,36 +59,31 @@ namespace Golf
 
         public void Update()
         {
+
             if (Time.time > _timer + _delay)
             {
                 _timer = Time.time;
-
-                var go = stoneSpawner.Spawn();
-                var stone = go.GetComponent<Stone>();
-
-                stone.OnCollisionStone += OnCollisionStone;
-
-                _stones.Add(stone);
-            }
-
-            if (_score == _nextInterval && !_dynamiteSpawned)
-            {   
-                var levelSettingsArray = Resources.LoadAll<LevelSettings>("");
-                int randomIndex = UnityEngine.Random.Range(0, levelSettingsArray.Length);
-                var ls = levelSettingsArray[randomIndex];
-                _delay = ls.stoneFallDelay;
-                SetNextInterval();
+                if (_score == _nextInterval)
+                {
+                    int randomIndex = UnityEngine.Random.Range(0, _levelSettingsArray.Length);
+                    var ls = _levelSettingsArray[randomIndex];
+                    _delay = ls.stoneFallDelay;
+                    SetNextInterval();
 
 
-                var go = stoneSpawner.SpawnDynamite();
-                var dynamite = go.GetComponent<Dynamite>();
-                //dynamite.OnCollisionDynamite += OnCollisionDynamite;
+                    var go = stoneSpawner.SpawnDynamite();
+                    var dynamite = go.GetComponent<Dynamite>();
+                    dynamite.OnCollisionDynamite += OnCollisionDynamite;
+                }
+                else
+                {
+                    var go = stoneSpawner.Spawn();
+                    var stone = go.GetComponent<Stone>();
 
-                _dynamiteSpawned = true;
-            }
-            else if (_score > _nextInterval)
-            {
-                _dynamiteSpawned = false;
+                    stone.OnCollisionStone += OnCollisionStone;
+
+                    _stones.Add(stone);
+                }
             }
         }
 

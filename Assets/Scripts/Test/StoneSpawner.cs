@@ -8,6 +8,7 @@ public class StoneSpawner : MonoBehaviour
     [SerializeField] private GameObject[] _prefabs;
 
     [SerializeField] private GameObject _dynamite;
+    public AudioSource dynamiteSound;
 
     private void Start()
     {
@@ -23,7 +24,9 @@ public class StoneSpawner : MonoBehaviour
     }
     public GameObject SpawnDynamite()
     {
+        dynamiteSound.Play();
         return Instantiate(_dynamite, _point.position, _point.rotation);
+        
     }
 
 }

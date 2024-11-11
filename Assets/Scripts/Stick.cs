@@ -75,17 +75,13 @@ namespace Golf
             stickSound.Play();
             if (other.gameObject.TryGetComponent<Stone>(out var stone) && !stone.isDirty) 
             {
+                Debug.Log("соприкосновение с камнем");
                 stone.isDirty = true;
                 //var contact = other.contacts[0];
                 //Debug.Log($"{contact.point} - {contact.normal} - {contact.impulse}");
                 other.rigidbody.AddForce(_dir * power, ForceMode.Impulse);
                 OnCollisionStone?.Invoke();
             }
-            // if (other.gameObject.TryGetComponent<Dynamite>(out var dynamite))
-            // {
-            //     //OnCollisionDynamite?.Invoke();
-            //     //Destroy(other.gameObject);
-            // }
         }
     }
 }
