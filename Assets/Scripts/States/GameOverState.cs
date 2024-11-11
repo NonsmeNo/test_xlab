@@ -9,10 +9,11 @@ namespace Golf
         public GameObject rootUI;
         public MainMenuState mainMenuState;
         public GamePlayState gamePlayState;
+        public AudioSource soundPlay;
+
          private void OnEnable()
         {
-            rootUI.SetActive(true);
-           
+            rootUI.SetActive(true);        
         }
 
 

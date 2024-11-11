@@ -24,13 +24,12 @@ namespace Golf
 
         private float _angle = 0;
 
+        public AudioSource stickSound;
+
         public void Reset()
         {
            _isDown = false; 
         }
-
-
-        
 
 
         private void Awake()
@@ -72,6 +71,7 @@ namespace Golf
 
         private void OnCollisionEnter(Collision other) //для того чтобы камень отталкивался от клюшки
         {
+            stickSound.Play();
             if (other.gameObject.TryGetComponent<Stone>(out var stone) && !stone.isDirty) 
             {
                 stone.isDirty = true;

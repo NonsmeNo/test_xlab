@@ -64,6 +64,21 @@ namespace Golf
 
                 _stones.Add(stone);
             }
+            if (_score == 10)
+            {
+                var ls = Resources.Load<LevelSettings>("LevelSettings 1");
+                _delay = ls.stoneFallDelay;
+            }
+            if (_score == 20)
+            {
+                var ls = Resources.Load<LevelSettings>("LevelSettings 0");
+                _delay = ls.stoneFallDelay;
+            }
+            if (_score == 27)
+            {
+                var ls = Resources.Load<LevelSettings>("LevelSettings 2");
+                _delay = ls.stoneFallDelay;
+            }
         }
 
         private void OnCollisionStone()

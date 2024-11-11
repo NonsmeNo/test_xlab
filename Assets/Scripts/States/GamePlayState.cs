@@ -15,6 +15,7 @@ namespace Golf
 
         public GameObject rootUI;
         public TMPro.TextMeshProUGUI scoreText;
+        public AudioSource gameOverSound;
 
 
         private void OnEnable()
@@ -58,7 +59,7 @@ namespace Golf
         {
             GameInstance.score = Mathf.Max(GameInstance.score, score);
 
-
+            gameOverSound.Play();
             gameObject.SetActive(false);
             gameOverState.gameObject.SetActive(true);
         }

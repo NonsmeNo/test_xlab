@@ -10,6 +10,7 @@ namespace Golf
         public GameObject mainMenuUI;
         public GamePlayState gamePlayState;
         public TextMeshProUGUI scoreText;
+        public AudioSource soundPlay;
         
         private void OnEnable()
         {
@@ -27,6 +28,11 @@ namespace Golf
         {
             gameObject.SetActive(false);
             gamePlayState.gameObject.SetActive(true);
+        }
+
+        public void PlayThisSoundEffect()
+        {
+            soundPlay.Play();
         }
 
         private void Exit()

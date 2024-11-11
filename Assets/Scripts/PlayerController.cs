@@ -10,6 +10,7 @@ namespace Golf
 
         public Stick stick;
 
+
         private void Awake()
         {
             Application.targetFrameRate = 30;
@@ -43,5 +44,6 @@ namespace Golf
         {
             stick.Up();
         }
+
     }
 }
