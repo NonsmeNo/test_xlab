@@ -70,7 +70,7 @@ namespace Golf
             _lastPointPosition = point.position;
         }
 
-        private void OnCollisionEnter(Collision other) //для того чтобы камень отталкивался от клюшки
+        private void OnCollisionEnter(Collision other)
         {
             stickSound.Play();
             if (other.gameObject.TryGetComponent<Stone>(out var stone) && !stone.isDirty) 
@@ -79,7 +79,7 @@ namespace Golf
                 stone.isDirty = true;
                 //var contact = other.contacts[0];
                 //Debug.Log($"{contact.point} - {contact.normal} - {contact.impulse}");
-                other.rigidbody.AddForce(_dir * power, ForceMode.Impulse);
+                other.rigidbody.AddForce(_dir * power, ForceMode.Impulse); //для того чтобы камень отталкивался от клюшки
                 OnCollisionStone?.Invoke();
             }
         }

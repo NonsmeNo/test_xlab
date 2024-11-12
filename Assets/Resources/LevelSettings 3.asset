@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2bcad2bae8511a45a3da7718f1bca10, type: 3}
   m_Name: LevelSettings 3
   m_EditorClassIdentifier: 
-  stoneFallDelay: 0.7
+  stoneFallDelay: 0.8
   level: 0

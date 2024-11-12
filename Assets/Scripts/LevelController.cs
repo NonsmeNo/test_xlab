@@ -23,7 +23,7 @@ namespace Golf
         //public LevelSettings levelSettings;
 
         private LevelSettings[] _levelSettingsArray;
-        private bool _dynamiteSpawned = false;
+
 
         public void OnEnable()
         {

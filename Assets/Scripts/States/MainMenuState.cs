@@ -35,9 +35,10 @@ namespace Golf
             soundPlay.Play();
         }
 
-        private void Exit()
+        public void Quit()
         {
-
+            Application.Quit();
+            Debug.Log("Выход");
         }
     }
 }
