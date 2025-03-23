@@ -1,53 +1,49 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+
+namespace Golf
 {
-    
-    [SerializeField] private FreeCamera _freeCamera;
+    public class PlayerController : MonoBehaviour
 
-    [SerializeField] private GameObject _ui;
-    [SerializeField] private StoneSpawner _stoneSpawner;
-    [SerializeField] private CloudController _cloudController;
-    [SerializeField] private ToolChangeController _toolChangeController;
-
-
-    private void Update()
     {
-        if (_ui.activeSelf)
+
+        public Stick stick;
+
+
+        private void Awake()
         {
-            return;
+            Application.targetFrameRate = 30;
         }
-        
-        if (!_ui.activeSelf && _freeCamera != null)
+        private void FixedUpdate()
         {
-            _freeCamera.Move();
+
+            // if (Input.GetMouseButton(0))
+            // {
+            //     PointerDown();
+            // }
+            // else
+            // {
+            //     PointerUp();
+            // }
         }
 
-        if (_stoneSpawner != null)
+        private void OnDisable()
         {
-            if (Input.GetKeyDown(KeyCode.X))
+            if (stick != null)
             {
-                _stoneSpawner.Spawn();
+                stick.Reset();
             }
         }
 
-         if (_cloudController != null)
+        public void PointerDown()
         {
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                _cloudController.MoveNext();
-            }
+            stick.Down();
         }
-        if (_toolChangeController != null)
+        public void PointerUp()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _toolChangeController.Change();
-            }
+            stick.Up();
         }
 
     }
-
 }
